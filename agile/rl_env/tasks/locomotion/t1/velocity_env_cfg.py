@@ -677,6 +677,12 @@ class T1LowerVelocityEnvCfg(ManagerBasedRLEnvCfg):
     def eval(self):
         self.scene.terrain.terrain_type = "plane"
         self.scene.terrain.terrain_generator = None
+
+        # Isaac Lab 3.0.0-beta2 plain-plane compatibility:
+        # keep the simulation-wide material, but avoid broken per-plane overrides.
+        self.scene.terrain.physics_material = None
+        self.scene.terrain.visual_material = None
+
         self.viewer.eye = (-2.5, -5.0, 2.0)
         self.viewer.lookat = (0.0, 0.0, 0.75)
         self.viewer.origin_type = "world"

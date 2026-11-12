@@ -69,7 +69,8 @@ class PickPlaceTrackingSceneCfg(InteractiveSceneCfg):
         prim_path="/World/ground",
         terrain_type="plane",
         debug_vis=False,
-        visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.65, 0.65, 0.65)),
+        physics_material=None,
+        visual_material=None,
     )
 
     # robots
@@ -598,7 +599,8 @@ class PickPlaceTrackingEnvCfg(ManagerBasedRLEnvCfg):
         # simulation settings
         self.sim.dt = 0.005
         self.sim.render_interval = self.decimation
-        self.sim.physics_material = self.scene.terrain.physics_material
+        if self.scene.terrain.physics_material is not None:
+            self.sim.physics_material = self.scene.terrain.physics_material
         if self.sim.physics is None:
             self.sim.physics = PhysxCfg()
         self.sim.physics.gpu_max_rigid_patch_count = 10 * 2**15
